@@ -1,0 +1,18 @@
+.options-menu-container{
+    border-radius: 50px;
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    background-color: #c7b29a;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.options-menu-container > GridLayout{
+    text-align: center;
+}
+
+.options-buttons .button{
+    margin: 10px 20px;
+    width: 30%;
+}

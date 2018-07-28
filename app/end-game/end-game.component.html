@@ -1,0 +1,10 @@
+<StackLayout class="end-game-container" orientation="vertical">
+    <Label class="h1" text="Finished!"></Label>
+    <Label class="h2" [text]="points"></Label>
+    <DockLayout stretchLastChild="true">
+        <Button text="Go to menu" 
+                dock="bottom"
+                class="button" 
+                (tap)="goHome()"></Button>
+    </DockLayout>
+</StackLayout>

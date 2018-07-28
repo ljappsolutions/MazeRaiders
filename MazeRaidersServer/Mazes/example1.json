@@ -1,0 +1,110 @@
+{
+    "maze": [
+        [
+            {
+                "hasNorth": true,
+                "hasEast": true
+            },
+            {
+                "hasWest": true,
+                "hasEast": true
+            },
+            {
+                "hasNorth": true,
+                "hasWest": true
+            },
+            {
+                "hasNorth": true,
+                "hasEast": true
+            },
+            {
+                "hasWest": true
+            }
+        ], [
+            {
+                "hasNorth": true,
+                "hasSouth": true
+            },
+            {
+                "hasNorth": true,
+                "hasEast": true
+            },
+            {
+                "hasWest": true,
+                "hasEast": true,
+                "hasSouth": true
+            },
+            {
+                "hasWest": true,
+                "hasEast": true,
+                "hasSouth": true
+            },
+            {
+                "hasWest": true,
+                "hasNorth": true
+            }
+        ], [
+            {
+                "hasSouth": true
+            },
+            {
+                "hasSouth": true,
+                "hasEast": true
+            },
+            {
+                "hasNorth": true,
+                "hasWest": true
+            },
+            {
+                "hasNorth": true,
+                "hasEast": true
+            },
+            {
+                "hasWest": true,
+                "hasSouth": true
+            }
+        ], [
+            {
+                "hasNorth": true,
+                "hasEast": true
+            },
+            {
+                "hasEast": true,
+                "hasWest": true
+            },
+            {
+                "hasWest": true,
+                "hasSouth": true
+            },
+            {
+                "hasSouth": true,
+                "hasEast": true
+            },
+            {
+                "hasNorth": true,
+                "hasWest": true
+            }
+        ], [
+            {
+                "hasEast": true,
+                "hasSouth": true
+            },
+            {
+                "hasEast": true,
+                "hasWest": true
+            },
+            {
+                "hasWest": true,
+                "hasNorth": true,
+                "isNorthExit": true
+            },
+            {
+                "hasEast": true
+            },
+            {
+                "hasWest": true,
+                "hasSouth": true
+            }
+        ]
+    ]
+}

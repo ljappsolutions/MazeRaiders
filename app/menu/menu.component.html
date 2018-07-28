@@ -1,0 +1,29 @@
+<AbsoluteLayout>
+    <StackLayout left="0" top="0" class="menu-bg" orientation="vertical">
+        <StackLayout orientation="horizontal" horizontalAlignment="center" height="100%">
+            <DockLayout class="home-menu-container" stretchLastChild="true" verticalAlignment="middle">
+                <Label dock="top" class="h1" text="Maze Raiders"></Label>
+                <StackLayout dock="bottom" class="menu-options" orientation="vertical" verticalAlignment="middle">
+                    <Button text="Start New Game" class="button new-game" (tap)="onNewGameTap()"></Button>
+                    <Button text="Continue Game" 
+                        *ngIf="showContinue"
+                        class="button continue-game" 
+                        (tap)="onContinueTap()"></Button>
+                    <Button text="Options" class="button options" (tap)="onOptionsTap()"></Button>
+                </StackLayout>
+            </DockLayout>
+        </StackLayout>
+    </StackLayout>
+    <Image #jewels width="15%"
+        stretch="fill"
+        src="~/images/jewels.png"></Image>
+    <Image #ingots width="15%" 
+        stretch="fill"
+        src="~/images/ingots.png"></Image>
+    <Image #bottle width="10%" 
+        stretch="aspectFit"
+        src="~/images/bottle.png"></Image>
+    <Image #coins width="15%" 
+        stretch="aspectFit"
+        src="~/images/coins.png"></Image>
+</AbsoluteLayout>

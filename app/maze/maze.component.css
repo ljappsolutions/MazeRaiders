@@ -1,0 +1,118 @@
+.base-maze {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.menu-button{
+    background-color:#724923;
+    color: white;
+    height: 15%;
+    width: 8%;
+    border-radius: 50%;
+}
+
+.arrows{
+    margin: auto;
+}
+
+.arrow-container{
+    padding: 15px;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    margin: auto;
+    background-color: transparent;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.bag{
+    box-shadow: 5 5 white;
+}
+
+.player-menu{
+    width: 80%;
+    height: 80%;
+    border-radius: 50;
+    background-color: #c7b29a;
+    padding-top: 25;
+    padding-bottom: 25;
+    padding-left: 25;
+    padding-right: 25;
+    text-align: center;
+}
+
+.player-map{
+    width: 100%;
+    height: 100%;
+    background-color: #c59b6d;
+    padding: 10;
+    text-align: center;
+}
+
+.player-map > .map{
+    width: 80%;
+    margin: auto;
+    margin: 5;
+}
+
+.player-map .map .map-content{
+    background-color: #62411d;
+    width: 100%;
+    height: 100%;
+}
+
+.not-seen{
+    background-color: #905d2c;
+}
+
+.seen{
+    background-color: #dfb485;
+}
+
+.is-here{
+    background-image: url("~/images/blurred-dot");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 50%;
+    height: 50%;
+}
+
+.player-map .map .map-content .seen.north{
+    border-top-color: #a09da0;
+    border-top-width: 3;
+    border-top-style: solid;
+}
+
+.player-map .map .map-content .seen.south{
+    border-bottom-color: #a09da0;
+    border-bottom-width: 3;
+    border-bottom-style: solid;
+}
+
+.player-map .map .map-content .seen.east{
+    border-right-color: #a09da0;
+    border-right-width: 3;
+    border-right-style: solid;
+}
+
+.player-map .map .map-content .seen.west{
+    border-left-color: #a09da0;
+    border-left-width: 3;
+    border-left-style: solid;
+}
+
+.menu-actions{
+    text-align: center;
+    margin-top: 5;
+}
+
+.button{
+    width: 30%;
+    margin: auto;
+    margin-right: 5
+}

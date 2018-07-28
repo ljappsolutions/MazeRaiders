@@ -1,0 +1,27 @@
+.menu-bg{
+    background-image: url("~/images/LFR1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.home-menu-container{
+    border-radius: 50px;
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    background-color: #c7b29a;
+    text-align: center;
+}
+
+.menu-options{
+    display: block;
+}
+
+.button{
+    width: 60%;
+    margin: auto;
+    margin-bottom: 10rem;
+}

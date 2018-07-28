@@ -1,0 +1,12 @@
+Page {
+    background-color: white;
+    font-size: 15;
+  }
+  TextField {
+    padding: 10;
+    font-size: 13;
+  }
+
+  .landscape:host{
+    border: 1px solid red;
+  }

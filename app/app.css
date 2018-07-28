@@ -1,0 +1,41 @@
+@import "nativescript-theme-core/css/sky.css";
+
+Page{
+    background-color: black;
+}
+
+.debug-ui{
+    border-color: red;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.h1{
+    margin-top: 50px;
+    color: #62411d;
+}
+
+.button{
+    background-color: #62411d;
+    color: white;
+    border-radius: 25px;
+    font-size: 20em;
+    padding: 10px;
+}
+
+.button:highlighted{
+    background-color: #724923;
+    color: #c79a9a;
+}
+/*
+rocas
+base #c59b6d
+sombra 1 #905d2c
+sombra 2 #62411d
+claro #dfb485
+
+madera #a09da0
+
+suelo base #c7b29a
+suelo claro #d3bea5
+*/

@@ -1,0 +1,15 @@
+<StackLayout class="options-menu-container" orientation="vertical">
+    <Label class="h1" text="Options"></Label>
+    <GridLayout columns="*, *" rows="auto, auto, *">
+        <Label margin="3"row="0" col="0" text="Music:" class="option-label"></Label>
+        <Switch margin="3" checked="true" row="0" col="1" class="option-switch"></Switch>
+        <Label margin="3" row="1" col="0" text="Effects:" class="option-label"></Label>
+        <Switch margin="3" checked="true" row="1" col="1" class="option-switch"></Switch>
+        <StackLayout row="2" col="0" colSpan="2" orientation="vertical">
+            <StackLayout orientation="horizontal" horizontalAlignment="center" class="options-buttons" height="100%">
+                <Button text="Back" class="button" (tap)="onBack()"
+                    verticalAlignment="middle"></Button>
+            </StackLayout>
+        </StackLayout>
+    </GridLayout>
+</StackLayout>

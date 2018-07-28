@@ -1,0 +1,114 @@
+<AbsoluteLayout>
+  <StackLayout left="0" top="0" orientation="vertical" class="base-maze" 
+    #baseMaze
+    [ngStyle]="getBackground()">
+    <DockLayout *ngIf="currentScreen && !animating" stretchLastChild="false" height="90%">
+      <DockLayout width="50%" height="50%" class="arrows" stretchLastChild="false" dock="bottom">
+        <StackLayout orientation="vertical" *ngIf="currentScreen.hasFrontArrow" dock="top" class="arrow-container top" (tap)="onFrontTap(baseMaze)">
+          <Image width="100%" height="100%" stretch="aspectFit" src="~/images/front-arrow.png"></Image>
+        </StackLayout>
+        <GridLayout dock="bottom" rows="auto" columns="*,*,*">
+          <StackLayout orientation="vertical" *ngIf="currentScreen.hasLeftArrow" row="0" col="0" class="arrow-container left" (tap)="onLeftTap(baseMaze)">
+            <Image width="100%" height="100%" stretch="aspectFit" src="~/images/left-arrow.png"></Image>
+          </StackLayout>
+          <StackLayout orientation="vertical" *ngIf="!isFirstStep" row="0" col="1" class="arrow-container bottom" (tap)="onBackTap(baseMaze)">
+            <Image width="100%" height="100%" stretch="aspectFit" src="~/images/back-arrow.png"></Image>
+          </StackLayout>
+          <StackLayout orientation="vertical" *ngIf="currentScreen.hasRightArrow" row="0" col="2" class="arrow-container right" (tap)="onRightTap(baseMaze)">
+            <Image width="100%" height="100%" stretch="aspectFit" src="~/images/right-arrow.png"></Image>
+          </StackLayout>
+        </GridLayout>
+      </DockLayout>
+    </DockLayout>
+    <!-- <GridLayout *ngIf="currentScreen && !animating" rows="auto" columns="*, auto" class="indicators">
+      <StackLayout row="0" col="1" orientation="horizontal">
+        <Label [text]="pointProgress"></Label>
+      </StackLayout>
+    </GridLayout> -->
+    <StackLayout orientation="vertical" *ngIf="!currentScreen">
+      <ActivityIndicator id="gameIndicator"
+        [busy]="isBusy"
+        backgroundColor="#d3bea5"
+        color="#62411d"
+        width="100%" 
+        height="90%">
+      </ActivityIndicator>
+      <Label text="Loading Game..." color="white"></Label>
+    </StackLayout>
+  </StackLayout>
+  <Image 
+      [visibility]="getBagVisibility()" 
+      #bag width="12%"
+      stretch="fill"
+      class="bag"
+      (tap)="addBagToPlayer()"
+      src="~/images/bag-white-glow.png"></Image>
+  <Button [visibility]="getFloatingBtnVisibility()" 
+    #playerMenuBtn
+    text="Menu" class="menu-button" 
+    (tap)="onMenuTap()"></Button>
+  <Button [visibility]="getFloatingBtnVisibility()" 
+    #playerMapBtn
+    text="Map" class="menu-button" 
+    (tap)="onMapTap()"></Button>
+  <DockLayout #playerMenu class="player-menu">
+    <FlexboxLayout flexDirection="row" justifyContent="center" dock="bottom"
+      class="menu-actions">
+      <Button text="Save and Exit" class="button"
+        (tap)="saveAndExitTap()"></Button>
+      <Button text="Close menu" class="button"
+        (tap)="onCloseMenuTap()"></Button>
+    </FlexboxLayout>
+    <StackLayout dock="top">
+      <Label class="h2" text="Bag"></Label>
+      <ScrollView orientation="vertical" ios.pagingEnabled="true">
+        <FlexboxLayout alignItems="flex-start" flexDirection="row" 
+          flexWrap="wrap"
+          *ngIf="maze" width="100%">
+            <StackLayout 
+              width="19%"
+              height="19%"
+              *ngFor="let bagItem of maze.player.bag">
+              <DockLayout>
+                <Label dock="bottom" [text]="bagItem.value + 'pts'"></Label>
+                <Image 
+                  dock="top"
+                  width="100%"
+                  stretch="aspectFit"
+                  [src]="bagItem.getItemImage()">
+                </Image>
+              </DockLayout>
+            </StackLayout>
+        </FlexboxLayout>
+      </ScrollView>
+    </StackLayout>
+  </DockLayout>
+  <DockLayout #playerMap class="player-map">
+    <Button text="Close Map" class="button" dock="bottom"
+      (tap)="onCloseMapTap()"></Button>
+    <StackLayout class="map" *ngIf="maze" dock="top">
+      <Label class="h2" text="Map"></Label>
+      <StackLayout orientation="vertical" height="100%">
+        <FlexboxLayout class="map-content" 
+          *ngFor="let mazeRow of maze.nodes; let idx = index;"
+          width="100%"
+          height="20%"
+          flexDirection="column">
+          <StackLayout orientation="horizontal">
+            <StackLayout 
+              width="20%"
+              height="100%"
+              *ngFor="let mazeNode of maze.nodes[maze.nodes.length - idx - 1]; let idy = index"
+              [class]="mazeNode.getClassName()"
+              verticalAlignment="middle">
+              <Label 
+                *ngIf="maze.isPlayerIn(maze.nodes.length - idx - 1, idy)"
+                [class.is-here]="maze.isPlayerIn(maze.nodes.length - idx - 1, idy)"
+                ></Label>
+            </StackLayout>
+          </StackLayout>
+        </FlexboxLayout>
+      </StackLayout>
+    </StackLayout>
+  </DockLayout>
+</AbsoluteLayout>
