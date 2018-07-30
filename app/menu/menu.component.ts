@@ -1,11 +1,12 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterExtensions } from 'nativescript-angular/router';
+import * as Admob from "nativescript-admob";
 
 import { Image } from "ui/image";
 import { PositioningService } from '~/shared/services/positioning.service';
 import { DatabaseSession } from '~/shared/models/dbSession';
-import { NOTHING, NEWMAZE, CONTINUEMAZE } from '~/shared/constants';
+import { NOTHING, NEWMAZE, CONTINUEMAZE, iosClientId, androidClientId, pcTestId, iosInterstitialId, androidInterstitialId } from '~/shared/constants';
 
 @Component({
     selector: 'menu',
@@ -46,6 +47,7 @@ export class MenuComponent implements OnInit {
         this.positioningService.setLeft(this.imageJewels, .05);
         this.positioningService.setTop(this.imageCoins, .75);
         this.positioningService.setLeft(this.imageCoins, .05);
+        this.processAdDisplay();
     }
 
     onNewGameTap(){
@@ -58,5 +60,29 @@ export class MenuComponent implements OnInit {
 
     onOptionsTap(){
         this.router.navigate(["options"], { clearHistory: true });
+    }
+
+    private processAdDisplay(){
+        var currentTime = new Date().getTime();
+        if(currentTime - this.databaseSession.lastAd > 5*60*1000){
+            this.createInterstitial();
+            this.databaseSession.lastAd = currentTime;
+            console.log("Showing ad after 5 minutes");
+        }else{
+            console.log("Cant show ad yet: " + (currentTime - this.databaseSession.lastAd));
+        }
+    }
+
+    private createInterstitial() {
+        Admob.createInterstitial({
+            testing: true,
+            iosInterstitialId: iosInterstitialId,
+            androidInterstitialId: androidInterstitialId,
+            iosTestDeviceIds: [ pcTestId ]
+        }).then(function() {
+            console.log("admob createInterstitial done");
+        }, function(error) {
+            console.log("admob createInterstitial error: " + error);
+        });
     }
 }

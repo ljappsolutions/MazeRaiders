@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AdsService } from '~/shared/services/ads.service';
 import { ActivatedRoute } from '@angular/router';
 import { RouterExtensions } from 'nativescript-angular/router';
 import * as Admob from "nativescript-admob";
+import { iosInterstitialId, androidInterstitialId, pcTestId } from '~/shared/constants';
 
 @Component({
     selector: 'end-game',
@@ -11,12 +11,8 @@ import * as Admob from "nativescript-admob";
 })
 export class EndGameComponent implements OnInit {
     points: number = 0;
-    private iosClientId: string = "ca-app-pub-3122655011443262~3857696607";
-    private androidInterstitialId: string = "ca-app-pub-3122655011443262/8698550628";
-    private iosInterstitialId: string = "ca-app-pub-3122655011443262/5334429806";
 
-    constructor(private adsService: AdsService
-        , private activatedRoute: ActivatedRoute
+    constructor(private activatedRoute: ActivatedRoute
         , private router: RouterExtensions) { }
 
     ngOnInit() { 
@@ -35,9 +31,9 @@ export class EndGameComponent implements OnInit {
     public createInterstitial() {
         Admob.createInterstitial({
             testing: true,
-            iosInterstitialId: this.iosInterstitialId,
-            androidInterstitialId: this.androidInterstitialId,
-            iosTestDeviceIds: ["67B7E10C-F467-5F8D-BB5E-F3378975A541"]
+            iosInterstitialId: iosInterstitialId,
+            androidInterstitialId: androidInterstitialId,
+            iosTestDeviceIds: [ pcTestId ]
         }).then(function() {
             console.log("admob createInterstitial done");
         }, function(error) {

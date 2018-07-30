@@ -14,3 +14,9 @@ export const NOTHING: string = "Nothing to save!";
 
 export const NEWMAZE: string = "NEW";
 export const CONTINUEMAZE: string = "CONTINUE";
+
+export const iosClientId: string = "ca-app-pub-3122655011443262~3857696607";
+export const androidClientId: string = "ca-app-pub-3122655011443262~1806248330";
+export const androidInterstitialId: string = "ca-app-pub-3122655011443262/8698550628";
+export const iosInterstitialId: string = "ca-app-pub-3122655011443262/5334429806";
+export const pcTestId: string = "25C1A71C-3588-54BF-90A7-B7064F362981";
