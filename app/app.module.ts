@@ -8,6 +8,7 @@ import { AppComponent } from "./app.component";
 import { appComponents, appRoutes } from "./app.routing";
 import { MazeGeneratorService } from "~/shared/services/maze-generator.service";
 import { PositioningService } from "~/shared/services/positioning.service";
+import { PhoneDetectorService } from "~/shared/services/phone-detector.service";
 
 @NgModule({
   declarations: [AppComponent, ...appComponents],
@@ -23,7 +24,8 @@ import { PositioningService } from "~/shared/services/positioning.service";
   providers: [
     MazeGeneratorService,
     HttpClient,
-    PositioningService
+    PositioningService,
+    PhoneDetectorService
   ]
 })
 export class AppModule {}

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Page, Color, isIOS } from 'tns-core-modules/ui/page/page';
-import { setTimeout } from 'tns-core-modules/timer';
+import { Page } from 'tns-core-modules/ui/page/page';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { StackLayout } from 'ui/layouts/stack-layout';
 import { DockLayout} from 'ui/layouts/dock-layout';
@@ -11,7 +10,6 @@ import { MazeGeneratorService } from '~/shared/services/maze-generator.service';
 import { Maze } from '~/shared/models/maze';
 import { ScreenConfig } from '~/shared/models/screen-config';
 import { PositioningService } from '~/shared/services/positioning.service';
-import { Bag } from '~/shared/models/bag';
 import { DatabaseSession } from '~/shared/models/dbSession';
 import { ActivatedRoute } from '@angular/router';
 import { CONTINUEMAZE, NORTH } from '~/shared/constants';
@@ -46,8 +44,7 @@ export class MazeComponent implements OnInit {
         return this.maze.stepCount === 0;
     }
 
-    constructor(private page: Page
-        , private router: RouterExtensions
+    constructor(private router: RouterExtensions
         , private mazeGeneratorService: MazeGeneratorService
         , private positioningService: PositioningService
         , private activatedRoute: ActivatedRoute) { 
@@ -99,7 +96,7 @@ export class MazeComponent implements OnInit {
         this.positioningService.setLeft(this.playerMenuButton, 0.91);
         this.positioningService.setTop(this.playerMapButton, .84);
         this.positioningService.setLeft(this.playerMapButton, 0.82);
-        this.positioningService.setTop(this.playerMenu, 0.1);
+        this.positioningService.setTop(this.playerMenu, 0.05);
         this.positioningService.setLeft(this.playerMenu, -1);
         this.positioningService.setTop(this.playerMap, -1);
         this.playerMenu.opacity = 0;
@@ -199,7 +196,7 @@ export class MazeComponent implements OnInit {
         if(this.isFloatingAnimating) return;
         this.isFloatingAnimating = true;
         this.playerMenu.animate({
-            translate: { x: 1.1*this.positioningService.getScreenWidth(), y: 0 },
+            translate: { x: 1.05*this.positioningService.getScreenWidth(), y: 0 },
             opacity: 1,
             duration: this.duration
         }).then(() => {

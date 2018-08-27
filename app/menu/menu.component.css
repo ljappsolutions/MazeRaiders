@@ -1,5 +1,5 @@
 .menu-bg{
-    background-image: url("~/images/LFR1.png");
+    background-image: url("~/images/menu-background.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -8,20 +8,18 @@
 }
 
 .home-menu-container{
-    border-radius: 50px;
-    width: 80%;
-    height: 80%;
+    width: 75%;
+    height: 75%;
     margin: auto;
-    background-color: #c7b29a;
     text-align: center;
+    background-image: url("~/images/menu-options-background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
-.menu-options{
-    display: block;
-}
-
-.button{
-    width: 60%;
+.button {
+    width: 55%;
     margin: auto;
-    margin-bottom: 10rem;
+    margin-bottom: 6rem;
 }

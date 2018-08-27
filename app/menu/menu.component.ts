@@ -1,12 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import * as Admob from "nativescript-admob";
-
-import { Image } from "ui/image";
-import { PositioningService } from '~/shared/services/positioning.service';
 import { DatabaseSession } from '~/shared/models/dbSession';
-import { NOTHING, NEWMAZE, CONTINUEMAZE, iosClientId, androidClientId, pcTestId, iosInterstitialId, androidInterstitialId } from '~/shared/constants';
+import { NEWMAZE, CONTINUEMAZE, pcTestId, iosInterstitialId, androidInterstitialId } from '~/shared/constants';
+import { DockLayout } from '../../node_modules/tns-core-modules/ui/layouts/dock-layout/dock-layout';
+import { PhoneDetectorService } from '~/shared/services/phone-detector.service';
 
 @Component({
     selector: 'menu',
@@ -14,14 +12,8 @@ import { NOTHING, NEWMAZE, CONTINUEMAZE, iosClientId, androidClientId, pcTestId,
     styleUrls: ['./menu/menu.component.css']
 })
 export class MenuComponent implements OnInit {
-    @ViewChild("bottle") bottle: ElementRef;
-    @ViewChild("jewels") jewels: ElementRef;
-    @ViewChild("ingots") ingots: ElementRef;
-    @ViewChild("coins") coins: ElementRef;
-    private imageBottle: Image;
-    private imageJewels: Image;
-    private imageIngots: Image;
-    private imageCoins: Image;
+    @ViewChild("menuButtons") menuButtonsRef: ElementRef;
+    private menuButtons: DockLayout;
     private databaseSession = DatabaseSession.getInstance();
 
     get showContinue(): boolean{
@@ -30,23 +22,18 @@ export class MenuComponent implements OnInit {
             this.databaseSession.currentMaze.rawNodes.length > 0;
     }
     
-    constructor(private router: RouterExtensions
-        , private positioningService: PositioningService) { }
+    constructor(private router: RouterExtensions,
+        private phoneDetector: PhoneDetectorService) { }
 
     
     ngOnInit() { 
-        this.imageBottle = <Image>this.bottle.nativeElement;
-        this.imageJewels = <Image>this.jewels.nativeElement;
-        this.imageIngots = <Image>this.ingots.nativeElement;
-        this.imageCoins = <Image>this.coins.nativeElement;
-        this.positioningService.setTop(this.imageBottle, .8);
-        this.positioningService.setLeft(this.imageBottle, .85);
-        this.positioningService.setTop(this.imageIngots, 0);
-        this.positioningService.setLeft(this.imageIngots, .80);
-        this.positioningService.setTop(this.imageJewels, 0);
-        this.positioningService.setLeft(this.imageJewels, .05);
-        this.positioningService.setTop(this.imageCoins, .75);
-        this.positioningService.setLeft(this.imageCoins, .05);
+        this.menuButtons = <DockLayout>this.menuButtonsRef.nativeElement;
+        if(this.phoneDetector.isPlusModel()){
+            this.menuButtons.paddingTop = 140;
+        }else{
+            this.menuButtons.paddingTop = 120;
+        }
+        
         this.processAdDisplay();
     }
 

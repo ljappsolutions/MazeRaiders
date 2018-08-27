@@ -3,7 +3,6 @@ import { MazeNode } from "~/shared/models/maze-node";
 import * as constants from "~/shared/constants";
 import { Coordinate } from "~/shared/models/coordinate";
 import { ScreenConfig } from "~/shared/models/screen-config";
-import { Bag } from "~/shared/models/bag";
 import { IDatabaseObject } from "~/shared/models/database-object";
 
 export class Maze implements IDatabaseObject{

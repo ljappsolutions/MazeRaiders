@@ -21,7 +21,7 @@ export class EndGameComponent implements OnInit {
         this.activatedRoute.params.subscribe(params => {
             this.points = +params["score"];
             console.log(this.points);
-        });
+        });        
     }
 
     goHome(){

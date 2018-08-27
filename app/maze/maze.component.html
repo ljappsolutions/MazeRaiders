@@ -60,14 +60,13 @@
         (tap)="onCloseMenuTap()"></Button>
     </FlexboxLayout>
     <StackLayout dock="top">
-      <Label class="h2" text="Bag"></Label>
       <ScrollView orientation="vertical" ios.pagingEnabled="true">
         <FlexboxLayout alignItems="flex-start" flexDirection="row" 
           flexWrap="wrap"
           *ngIf="maze" width="100%">
             <StackLayout 
-              width="19%"
-              height="19%"
+              width="14%"
+              height="14%"
               *ngFor="let bagItem of maze.player.bag">
               <DockLayout>
                 <Label dock="bottom" [text]="bagItem.value + 'pts'"></Label>
@@ -87,7 +86,6 @@
     <Button text="Close Map" class="button" dock="bottom"
       (tap)="onCloseMapTap()"></Button>
     <StackLayout class="map" *ngIf="maze" dock="top">
-      <Label class="h2" text="Map"></Label>
       <StackLayout orientation="vertical" height="100%">
         <FlexboxLayout class="map-content" 
           *ngFor="let mazeRow of maze.nodes; let idx = index;"
