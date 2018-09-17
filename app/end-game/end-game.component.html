@@ -1,10 +1,18 @@
-<StackLayout class="end-game-container" orientation="vertical">
-    <Label class="h1" text="Finished!"></Label>
-    <Label class="h2" [text]="points"></Label>
-    <DockLayout stretchLastChild="true">
-        <Button text="Go to menu" 
-                dock="bottom"
-                class="button" 
-                (tap)="goHome()"></Button>
-    </DockLayout>
-</StackLayout>
+<AbsoluteLayout>
+    <StackLayout left="0" top="0" class="menu-bg" orientation="vertical">
+        <StackLayout orientation="horizontal" horizontalAlignment="center" height="100%">
+            <StackLayout class="home-menu-container" orientation="vertical" verticalAlignment="middle">
+                <DockLayout #results height="100%" stretchLastChild="false">
+                    <StackLayout orientation="vertical" dock="top">
+                        <Label class="h1" [text]="gameMessage"></Label>
+                        <Label class="h2" [text]="points"></Label>
+                        <Button text="Go to menu" 
+                            dock="bottom"
+                            class="button" 
+                            (tap)="goHome()"></Button>
+                    </StackLayout>
+                </DockLayout>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</AbsoluteLayout>

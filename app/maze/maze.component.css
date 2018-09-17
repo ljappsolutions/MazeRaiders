@@ -62,12 +62,12 @@
 }
 
 .player-map .map .map-content{
-    background-color: #62411d;
+    background-color: #474747;
     width: 95%;
 }
 
 .not-seen{
-    background-color: #905d2c;
+    background-color: #474747;
 }
 
 .seen{

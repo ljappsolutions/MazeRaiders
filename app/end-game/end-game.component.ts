@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterExtensions } from 'nativescript-angular/router';
 import * as Admob from "nativescript-admob";
-import { iosInterstitialId, androidInterstitialId, pcTestId } from '~/shared/constants';
+import { iosInterstitialId, androidInterstitialId, pcTestId, NOTHING } from '~/shared/constants';
+import { DockLayout } from 'tns-core-modules/ui/layouts/dock-layout/dock-layout';
+import { PhoneDetectorService } from '~/shared/services/phone-detector.service';
+import { DatabaseSession } from '~/shared/models/dbSession';
 
 @Component({
     selector: 'end-game',
@@ -10,25 +13,47 @@ import { iosInterstitialId, androidInterstitialId, pcTestId } from '~/shared/con
     styleUrls: ['./end-game/end-game.component.css']
 })
 export class EndGameComponent implements OnInit {
-    points: number = 0;
+    @ViewChild("results") resultsRef: ElementRef;
+    gameMessage: string = "";
+    private results: DockLayout;
+    private totalPoints: number = 0;
+    private databaseSession = DatabaseSession.getInstance();
+
+    get points(): string {
+        return this.totalPoints + 'pts';
+    }
 
     constructor(private activatedRoute: ActivatedRoute
-        , private router: RouterExtensions) { }
+        , private router: RouterExtensions
+        , private phoneDetector: PhoneDetectorService) { }
 
     ngOnInit() { 
-        this.createInterstitial();
+        this.results = <DockLayout>this.resultsRef.nativeElement;
+        if(this.phoneDetector.isPlusModel()){
+            this.results.paddingTop = 120;
+        }else{
+            this.results.paddingTop = 100;
+        }
 
+        this.databaseSession.currentMaze = NOTHING;
         this.activatedRoute.params.subscribe(params => {
-            this.points = +params["score"];
-            console.log(this.points);
-        });        
+            this.totalPoints = +params["score"];
+            let currentMaxPoints = this.databaseSession.maxPoints;
+            if(this.totalPoints > currentMaxPoints){
+                this.databaseSession.maxPoints = this.totalPoints;
+                this.gameMessage = "New Score!!"
+            }else{
+                this.gameMessage = "Finished!"
+            }
+            this.createInterstitial();
+        });
     }
 
     goHome(){
         this.router.navigate([""], { clearHistory: true });
     }
 
-    public createInterstitial() {
+    private createInterstitial() {
         Admob.createInterstitial({
             testing: true,
             iosInterstitialId: iosInterstitialId,

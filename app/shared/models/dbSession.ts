@@ -1,13 +1,13 @@
-import { Coordinate } from "~/shared/models/coordinate";
-import { Maze } from "~/shared/models/maze";
 import { DBNAME, NOTHING } from "~/shared/constants";
-import { DatePipe } from "../../../node_modules/@angular/common";
 
 let CouchBaseModule = require("nativescript-couchbase");
 
 export interface DbSession{
     currentMaze: string;
     lastAd: number;
+    maxPoints: number;
+    backgroundMusic: boolean;
+    effects: boolean;
 }
 
 export class DatabaseSession{
@@ -25,7 +25,10 @@ export class DatabaseSession{
         if (!this.sessionDocument) {
             this.sessionObj = {
                 currentMaze: NOTHING,
-                lastAd: new Date().getTime()
+                lastAd: new Date().getTime(),
+                maxPoints: 0,
+                backgroundMusic: true,
+                effects: true
             };
             this.database.createDocument(this.sessionObj, this.SESSION_DOC_ID);
             this.sessionDocument = this.database.getDocument(this.SESSION_DOC_ID);
@@ -63,6 +66,42 @@ export class DatabaseSession{
     set lastAd(value: any) {
         this.sessionObj = this.database.getDocument(this.SESSION_DOC_ID);
         this.sessionObj.lastAd = value;
+        this.database.updateDocument(this.SESSION_DOC_ID, this.sessionObj);
+    }
+
+    get maxPoints(): number {
+        this.sessionObj = this.database.getDocument(this.SESSION_DOC_ID);
+        let maxPoints = this.sessionObj.maxPoints;
+        return maxPoints ? maxPoints : 0;
+    }
+
+    set maxPoints(value: number) {
+        this.sessionObj = this.database.getDocument(this.SESSION_DOC_ID);
+        this.sessionObj.maxPoints = value;
+        this.database.updateDocument(this.SESSION_DOC_ID, this.sessionObj);
+    }
+
+    get backgroundMusic(): boolean {
+        this.sessionObj = this.database.getDocument(this.SESSION_DOC_ID);
+        let backgroundMusic = this.sessionObj.backgroundMusic;
+        return backgroundMusic;
+    }
+
+    set backgroundMusic(value: boolean) {
+        this.sessionObj = this.database.getDocument(this.SESSION_DOC_ID);
+        this.sessionObj.backgroundMusic = value;
+        this.database.updateDocument(this.SESSION_DOC_ID, this.sessionObj);
+    }
+
+    get effects(): boolean {
+        this.sessionObj = this.database.getDocument(this.SESSION_DOC_ID);
+        let effects = this.sessionObj.effects;
+        return effects;
+    }
+
+    set effects(value: boolean) {
+        this.sessionObj = this.database.getDocument(this.SESSION_DOC_ID);
+        this.sessionObj.effects = value;
         this.database.updateDocument(this.SESSION_DOC_ID, this.sessionObj);
     }
 }

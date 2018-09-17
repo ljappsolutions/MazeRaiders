@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Page } from 'tns-core-modules/ui/page/page';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { StackLayout } from 'ui/layouts/stack-layout';
 import { DockLayout} from 'ui/layouts/dock-layout';
@@ -14,6 +13,7 @@ import { DatabaseSession } from '~/shared/models/dbSession';
 import { ActivatedRoute } from '@angular/router';
 import { CONTINUEMAZE, NORTH } from '~/shared/constants';
 import { Player } from '~/shared/models/player';
+import { TNSPlayer } from 'nativescript-audio';
 
 @Component({
     selector: 'maze',
@@ -35,6 +35,7 @@ export class MazeComponent implements OnInit {
     private playerMapButton: Button;
     private playerMenu: DockLayout;
     private playerMap: DockLayout;
+    private databaseSession = DatabaseSession.getInstance();
 
     get pointProgress(): string{
         return `${this.maze.player.points}/${this.maze.maxPoints}`; 
@@ -66,6 +67,44 @@ export class MazeComponent implements OnInit {
                 this.setNewMaze();
             }
         });
+        this.initSounds();
+    }
+
+    private bagSound: TNSPlayer;
+    private movementSound: TNSPlayer;
+    private backgroundMusic: TNSPlayer;
+    private initSounds(){
+        this.bagSound = new TNSPlayer();
+        this.movementSound = new TNSPlayer();
+        this.backgroundMusic = new TNSPlayer();
+        if(this.databaseSession.effects){
+            this.bagSound.initFromFile({
+                audioFile: "~/sounds/bag.wav",
+                loop: false,
+                autoPlay: false
+            });
+            this.movementSound.initFromFile({
+                audioFile: "~/sounds/steps.wav",
+                loop: false,
+                autoPlay: false
+            });
+        }
+        if(this.databaseSession.backgroundMusic) {
+            this.backgroundMusic.initFromFile({
+                audioFile: "~/sounds/mazebackground.mp3",
+                loop: true
+            });
+            this.backgroundMusic.play();
+        }
+    }
+
+    private unloadAllMusic(){
+        this.bagSound.pause();
+        this.bagSound.dispose();
+        this.movementSound.pause();
+        this.movementSound.dispose();
+        this.backgroundMusic.pause();
+        this.backgroundMusic.dispose();
     }
 
     private setNewMaze(){
@@ -104,9 +143,11 @@ export class MazeComponent implements OnInit {
     }
 
     animating: boolean = false;
-    private duration = 500;
+    private duration = 600;
     private doMovement(baseMaze: StackLayout, action){
         this.animating = true;
+        if(this.databaseSession.effects)
+            this.movementSound.play();
         baseMaze.animate({
             opacity: 0,
             duration: this.duration
@@ -115,6 +156,7 @@ export class MazeComponent implements OnInit {
             action();
             this.currentScreen = this.maze.getCurrentScreen();
             if(this.currentScreen.isExit){
+                this.unloadAllMusic();
                 this.router.navigate([`endGame/${this.maze.player.points}`], { clearHistory: true });
             }else{
                 baseMaze.animate({
@@ -177,6 +219,8 @@ export class MazeComponent implements OnInit {
     }
 
     addBagToPlayer(){
+        if(this.databaseSession.effects)
+            this.bagSound.play();
         this.maze.pickBag();
         this.currentScreen.bag = null;
     }
@@ -240,9 +284,9 @@ export class MazeComponent implements OnInit {
         });
     }
 
-    private databaseSession = DatabaseSession.getInstance();
     saveAndExitTap(){
         this.databaseSession.currentMaze = this.maze.getDatabaseObject();
+        this.unloadAllMusic();
         this.router.navigate([""], { clearHistory: true });
     }
 }

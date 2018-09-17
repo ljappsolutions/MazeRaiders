@@ -3,7 +3,7 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import * as Admob from "nativescript-admob";
 import { DatabaseSession } from '~/shared/models/dbSession';
 import { NEWMAZE, CONTINUEMAZE, pcTestId, iosInterstitialId, androidInterstitialId } from '~/shared/constants';
-import { DockLayout } from '../../node_modules/tns-core-modules/ui/layouts/dock-layout/dock-layout';
+import { DockLayout } from 'tns-core-modules/ui/layouts/dock-layout/dock-layout';
 import { PhoneDetectorService } from '~/shared/services/phone-detector.service';
 
 @Component({
@@ -51,10 +51,10 @@ export class MenuComponent implements OnInit {
 
     private processAdDisplay(){
         var currentTime = new Date().getTime();
-        if(currentTime - this.databaseSession.lastAd > 5*60*1000){
+        if(currentTime - this.databaseSession.lastAd > 2*60*1000){
             this.createInterstitial();
             this.databaseSession.lastAd = currentTime;
-            console.log("Showing ad after 5 minutes");
+            console.log("Showing ad after 2 minutes");
         }else{
             console.log("Cant show ad yet: " + (currentTime - this.databaseSession.lastAd));
         }

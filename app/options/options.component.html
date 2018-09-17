@@ -1,15 +1,26 @@
-<StackLayout class="options-menu-container" orientation="vertical">
-    <Label class="h1" text="Options"></Label>
-    <GridLayout columns="*, *" rows="auto, auto, *">
-        <Label margin="3"row="0" col="0" text="Music:" class="option-label"></Label>
-        <Switch margin="3" checked="true" row="0" col="1" class="option-switch"></Switch>
-        <Label margin="3" row="1" col="0" text="Effects:" class="option-label"></Label>
-        <Switch margin="3" checked="true" row="1" col="1" class="option-switch"></Switch>
-        <StackLayout row="2" col="0" colSpan="2" orientation="vertical">
-            <StackLayout orientation="horizontal" horizontalAlignment="center" class="options-buttons" height="100%">
-                <Button text="Back" class="button" (tap)="onBack()"
-                    verticalAlignment="middle"></Button>
+<AbsoluteLayout>
+    <StackLayout left="0" top="0" class="menu-bg" orientation="vertical">
+        <StackLayout orientation="horizontal" horizontalAlignment="center" height="100%">
+            <StackLayout class="options-menu-container" orientation="vertical" verticalAlignment="middle">
+                <DockLayout #options height="100%" stretchLastChild="false">
+                    <StackLayout orientation="vertical" dock="top">
+                        <StackLayout orientation="horizontal" horizontalAlignment="center">
+                            <Label margin="3" text="Music:"></Label>
+                            <Switch margin="3" [checked]="backgroundMusic"
+                                (checkedChange)="onBackgroundMusicChange($event)"></Switch>
+                        </StackLayout>
+                        <StackLayout orientation="horizontal" horizontalAlignment="center">
+                            <Label margin="3" text="Effects:"></Label>
+                            <Switch margin="3" [checked]="effects"
+                                (checkedChange)="onEffectsChange($event)"></Switch>
+                        </StackLayout>
+                        <Button text="Back" 
+                            dock="bottom"
+                            class="button" 
+                            (tap)="onBack()"></Button>
+                    </StackLayout>
+                </DockLayout>
             </StackLayout>
         </StackLayout>
-    </GridLayout>
-</StackLayout>
+    </StackLayout>
+</AbsoluteLayout>
