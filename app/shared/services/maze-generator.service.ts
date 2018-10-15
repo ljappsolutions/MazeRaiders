@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 import * as constants from '../constants';
 import { DatabaseMazes, DbMaze } from '~/shared/models/dbMaze';
 import { connectionType, getConnectionType } from 'tns-core-modules/connectivity'
@@ -29,7 +27,6 @@ export class MazeGeneratorService {
     getMaze(): Promise<any>{
         if(this.databaseMazes.mazes && this.databaseMazes.mazes.length > 0
             && this.databaseMazes.lastCheck > addDays(new Date(), -7).getTime()){
-            console.log("Retrieving existing mazes");
             return new Promise((resolve, reject) => {
                 let maze = this.databaseMazes.mazes[
                     Math.floor(Math.random()
@@ -37,7 +34,6 @@ export class MazeGeneratorService {
                 resolve(this.generateItems(maze));
             });
         }else if (getConnectionType() !== connectionType.none){
-            console.log("Retrieving mazes");
             return this.httpClient.get(
                 'https://u12z8ud954.execute-api.us-east-1.amazonaws.com/prod/maze'
             ).toPromise().then(data => {

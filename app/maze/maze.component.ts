@@ -11,9 +11,10 @@ import { ScreenConfig } from '~/shared/models/screen-config';
 import { PositioningService } from '~/shared/services/positioning.service';
 import { DatabaseSession } from '~/shared/models/dbSession';
 import { ActivatedRoute } from '@angular/router';
-import { CONTINUEMAZE, NORTH } from '~/shared/constants';
+import { CONTINUEMAZE, NORTH, iosClientId, pcTestId, isAdTesting } from '~/shared/constants';
 import { Player } from '~/shared/models/player';
 import { TNSPlayer } from 'nativescript-audio';
+import { createBanner, AD_SIZE } from 'nativescript-admob';
 
 @Component({
     selector: 'maze',
@@ -68,6 +69,22 @@ export class MazeComponent implements OnInit {
             }
         });
         this.initSounds();
+        this.setupAdBanner();
+    }
+
+    setupAdBanner(){
+        createBanner({
+            testing: isAdTesting,
+            size: AD_SIZE.FLUID,
+            iosBannerId: iosClientId,
+            iosTestDeviceIds: [ pcTestId ],
+            margins: {
+                top: 10
+            },
+        }).then(function() {
+        }, function(error) {
+            console.log("admob banner error: " + error);
+        });
     }
 
     private bagSound: TNSPlayer;

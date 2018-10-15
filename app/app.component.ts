@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Page } from "tns-core-modules/ui/page/page";
+var orientation = require('nativescript-orientation');
 
 @Component({
   selector: "my-app",
@@ -8,6 +8,8 @@ import { Page } from "tns-core-modules/ui/page/page";
 })
 export class AppComponent {
   
-  constructor(private page: Page) {
+  constructor() {
+    orientation.setOrientation("landscape");
+    orientation.disableRotation();
   }
 }

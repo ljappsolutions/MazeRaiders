@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import * as Admob from "nativescript-admob";
 import { DatabaseSession } from '~/shared/models/dbSession';
-import { NEWMAZE, CONTINUEMAZE, pcTestId, iosInterstitialId, androidInterstitialId } from '~/shared/constants';
+import { NEWMAZE, CONTINUEMAZE, pcTestId, iosInterstitialId, isAdTesting } from '~/shared/constants';
 import { DockLayout } from 'tns-core-modules/ui/layouts/dock-layout/dock-layout';
 import { PhoneDetectorService } from '~/shared/services/phone-detector.service';
 
@@ -23,9 +23,9 @@ export class MenuComponent implements OnInit {
     }
     
     constructor(private router: RouterExtensions,
-        private phoneDetector: PhoneDetectorService) { }
+        private phoneDetector: PhoneDetectorService) { 
+        }
 
-    
     ngOnInit() { 
         this.menuButtons = <DockLayout>this.menuButtonsRef.nativeElement;
         if(this.phoneDetector.isPlusModel()){
@@ -54,20 +54,15 @@ export class MenuComponent implements OnInit {
         if(currentTime - this.databaseSession.lastAd > 2*60*1000){
             this.createInterstitial();
             this.databaseSession.lastAd = currentTime;
-            console.log("Showing ad after 2 minutes");
-        }else{
-            console.log("Cant show ad yet: " + (currentTime - this.databaseSession.lastAd));
         }
     }
 
     private createInterstitial() {
         Admob.createInterstitial({
-            testing: true,
+            testing: isAdTesting,
             iosInterstitialId: iosInterstitialId,
-            androidInterstitialId: androidInterstitialId,
             iosTestDeviceIds: [ pcTestId ]
         }).then(function() {
-            console.log("admob createInterstitial done");
         }, function(error) {
             console.log("admob createInterstitial error: " + error);
         });

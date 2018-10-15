@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterExtensions } from 'nativescript-angular/router';
 import * as Admob from "nativescript-admob";
-import { iosInterstitialId, androidInterstitialId, pcTestId, NOTHING } from '~/shared/constants';
+import { iosInterstitialId, pcTestId, NOTHING, isAdTesting } from '~/shared/constants';
 import { DockLayout } from 'tns-core-modules/ui/layouts/dock-layout/dock-layout';
 import { PhoneDetectorService } from '~/shared/services/phone-detector.service';
 import { DatabaseSession } from '~/shared/models/dbSession';
@@ -55,12 +55,10 @@ export class EndGameComponent implements OnInit {
 
     private createInterstitial() {
         Admob.createInterstitial({
-            testing: true,
+            testing: isAdTesting,
             iosInterstitialId: iosInterstitialId,
-            androidInterstitialId: androidInterstitialId,
             iosTestDeviceIds: [ pcTestId ]
         }).then(function() {
-            console.log("admob createInterstitial done");
         }, function(error) {
             console.log("admob createInterstitial error: " + error);
         });
